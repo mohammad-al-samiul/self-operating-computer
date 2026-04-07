@@ -1,202 +1,192 @@
-🧠 AI Remote PC Control (Telegram + Gemini) – Setup & Usage Guide
-=================================================================
+# 🧠 AI Remote PC Control (Telegram + Gemini)
 
-This guide will help you **install, configure, and use** the system step-by-step.
+Control your PC remotely using natural language commands via Telegram.
+This system uses **Google Gemini AI** to convert human text into executable commands and runs them on your PC.
 
-⚙️ 1. Prerequisites
--------------------
+---
 
-Make sure you have:
+## 🚀 System Flow
 
-*   Python 3.9 or higher installed
-    
-*   A Telegram account
-    
-*   A Google Gemini API key
-    
-*   Your PC connected to the internet (same network or public access)
-    
+```
+Telegram → Bridge Server → Gemini AI → Command → PC Listener → Output → Telegram
+```
 
-🔑 2. Get Required Keys
------------------------
+---
 
-### 📱 Telegram Bot Token
+## 📦 Features
 
-1.  Open Telegram
-    
-2.  Search **BotFather**
-    
-3.  Type /start
-    
-4.  Type /newbot
-    
-5.  Set bot name and username
-    
-6.  Copy the **BOT TOKEN**
-    
+- 📱 Control PC from Telegram
+- 🤖 Natural language → system command
+- ⚡ Real-time execution
+- 🔐 Token-based security
+- 🧩 Modular architecture
 
-### 🤖 Gemini API Key
+---
 
-1.  Go to Google AI Studio
-    
-2.  Generate API key
-    
-3.  Copy it
-    
+## 🏗️ Project Structure
 
-📁 3. Project Setup
--------------------
+```
+project/
+│
+├── listener.py   # Runs on PC (executes commands)
+├── ai.py         # Gemini AI logic
+├── bridge.py     # Telegram + AI + PC connector
+└── run.sh        # (optional) start script
+```
 
-Create a project folder and add these files:
+---
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   project/  │  ├── listener.py  ├── ai.py  ├── bridge.py   `
+## ⚙️ Setup Guide
 
-📦 4. Install Dependencies
---------------------------
+### 1️⃣ Clone Repository
 
-Run this command in terminal:
+```
+git clone https://github.com/yourusername/ai-remote-pc.git
+cd ai-remote-pc
+```
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   pip install flask requests python-telegram-bot google-generativeai   `
+---
 
-💻 5. Setup PC Listener (Main Engine)
--------------------------------------
+### 2️⃣ Install Dependencies
 
-Edit listener.py:
+```
+pip install flask requests python-telegram-bot google-generativeai
+```
 
-*   Change SECRET (important)
-    
+---
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   SECRET = "your_strong_secret_here"   `
+### 3️⃣ Configure Environment
 
-Run:
+Edit files:
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   python listener.py   `
+#### 📄 `listener.py`
 
-✅ Your PC is now listening on:
+```
+SECRET = "your_strong_secret_here"
+```
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   http://localhost:5000/run   `
+#### 📄 `ai.py`
 
-🌐 6. Find Your PC IP
----------------------
+```
+genai.configure(api_key="YOUR_GEMINI_API_KEY")
+```
 
-### Windows:
+#### 📄 `bridge.py`
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   ipconfig   `
+```
+PC_URL = "http://YOUR_PC_IP:5000/run"
+SECRET = "your_strong_secret_here"
+BOT_TOKEN = "YOUR_TELEGRAM_BOT_TOKEN"
+```
 
-Look for:
+---
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   IPv4 Address → example: 192.168.1.5   `
+## ▶️ Run the System
 
-🤖 7. Setup AI (Gemini)
------------------------
+### Option A: Manual
 
-Edit ai.py:
+```
+python listener.py
+```
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   genai.configure(api_key="YOUR_GEMINI_API_KEY")   `
+Open another terminal:
 
-🔗 8. Setup Bridge Server
--------------------------
+```
+python bridge.py
+```
 
-Edit bridge.py:
+---
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   PC_URL = "http://YOUR_PC_IP:5000/run"  SECRET = "your_strong_secret_here"  BOT_TOKEN = "YOUR_TELEGRAM_BOT_TOKEN"   `
+### Option B: Bash Script (Linux/Mac)
 
-▶️ 9. Run the System
---------------------
+```
+chmod +x run.sh
+./run.sh
+```
 
-### Step 1: Start Listener (PC)
+---
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   python listener.py   `
+### Option C: Windows
 
-### Step 2: Start Bridge Server
+Create `run.bat`:
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   python bridge.py   `
+```
+@echo off
+start cmd /k python listener.py
+timeout /t 2
+start cmd /k python bridge.py
+```
 
-🧪 10. Test the System
-----------------------
+---
 
-Open your Telegram bot and send:
+## 📱 Telegram Bot Setup
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   open notepad   `
+1. Open Telegram
+2. Search **BotFather**
+3. Run `/start`
+4. Create bot → `/newbot`
+5. Copy your BOT TOKEN
 
-✅ Expected flow:
+---
 
-1.  You send message
-    
-2.  Gemini converts → notepad
-    
-3.  Command sent to PC
-    
-4.  PC executes
-    
-5.  Output returned to Telegram
-    
+## 🧪 Usage
 
-🔐 Security Tips (VERY IMPORTANT)
----------------------------------
+Send commands in Telegram:
 
-⚠️ This system can fully control your PC
+```
+open notepad
+```
 
-*   Use a strong SECRET (not mysecret123)
-    
-*   Do NOT expose port 5000 publicly without protection
-    
-*   Use firewall or VPN
-    
-*   Add command filtering (recommended)
-    
-*   Restrict Telegram user IDs
-    
+```
+shutdown pc
+```
 
-❗ Common Errors & Fix
----------------------
+```
+open chrome
+```
 
-### ❌ Bot not responding
+---
 
-*   Check BOT\_TOKEN
-    
-*   Ensure bridge.py is running
-    
+## 🔐 Security Warning
 
-### ❌ No output from PC
+⚠️ This system gives full control over your PC.
 
-*   Check listener is running
-    
-*   Verify PC IP is correct
-    
+- Use a strong SECRET
+- Do NOT expose port 5000 publicly
+- Use firewall / VPN
+- Add command filtering (recommended)
+- Restrict Telegram user IDs
 
-### ❌ Unauthorized error
+---
 
-*   SECRET mismatch between files
-    
+## ❗ Troubleshooting
 
-🚀 Example Commands
--------------------
+| Problem            | Solution                      |
+| ------------------ | ----------------------------- |
+| Bot not responding | Check BOT_TOKEN & bridge.py   |
+| No output          | Ensure listener.py is running |
+| Unauthorized       | SECRET mismatch               |
 
-Try sending:
+---
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   open chrome  shutdown pc  list files in desktop   `
+## 💡 Future Improvements
 
-🧠 How It Works
----------------
+- ✅ Command whitelist
+- 🔐 User authentication
+- 📊 Logging system
+- 🌐 Web dashboard
+- ☁️ Cloud deployment
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   Telegram → Bridge → Gemini → Command → PC → Output → Telegram   `
+---
 
-💡 Future Improvements
-----------------------
+## 📜 License
 
-*   Add GUI dashboard
-    
-*   Add authentication system
-    
-*   Add command history
-    
-*   Add file transfer support
-    
+MIT License
 
-🎯 Done!
---------
+---
 
-You now have your own **AI-powered remote PC controller** 🤖💻
+## ⭐ Support
 
-Use responsibly and securely.
+If you like this project, give it a ⭐ on GitHub!
+
+---
