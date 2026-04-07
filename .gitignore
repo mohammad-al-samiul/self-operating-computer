@@ -1,0 +1,63 @@
+# 🔐 Secrets & Environment
+.env
+.env.*
+*.env
+
+# 🔑 API Keys / Credentials
+config.json
+secrets.json
+credentials.json
+
+# 🧠 Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# 🐍 Virtual Environment
+venv/
+.env/
+.venv/
+env/
+
+# 📦 Installed packages
+*.egg-info/
+dist/
+build/
+
+# 📝 Logs
+*.log
+
+# 💻 OS Files
+.DS_Store
+Thumbs.db
+
+# 🧪 Testing / temp
+tmp/
+temp/
+*.tmp
+
+# 📡 Flask / Server
+instance/
+.webassets-cache
+
+# 🤖 Telegram session (if any)
+*.session
+
+# 📂 IDE / Editor
+.vscode/
+.idea/
+
+# personal setting
+.vscode 
+
+# 🔥 Local config (IMPORTANT)
+settings.py
+local_settings.py
+
+# 📸 Screenshots / media (if generated)
+screenshots/
+recordings/
+
+# 🧠 Model cache (optional)
+.cache/
