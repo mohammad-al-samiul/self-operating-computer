@@ -1,163 +1,202 @@
-# 💻📱 AI Remote PC Control (Gemini + Python)
+🧠 AI Remote PC Control (Telegram + Gemini) – Setup & Usage Guide
+=================================================================
 
-Control your PC remotely using natural language from your mobile device powered by **Google Gemini AI**.
+This guide will help you **install, configure, and use** the system step-by-step.
 
-## 🚀 Overview
+⚙️ 1. Prerequisites
+-------------------
 
-This project allows you to:
+Make sure you have:
 
-- 📱 Send commands from your phone
-- 🤖 Convert natural language → Windows CMD using Gemini
-- 🌐 Send commands via a server
-- 💻 Execute commands on your PC automatically
+*   Python 3.9 or higher installed
+    
+*   A Telegram account
+    
+*   A Google Gemini API key
+    
+*   Your PC connected to the internet (same network or public access)
+    
 
-## 🧠 How It Works
+🔑 2. Get Required Keys
+-----------------------
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   Mobile (User Input / Gemini)          ↓  Gemini AI (Text → Command)          ↓  Flask Server (Bridge)          ↓  PC Listener Script          ↓  Command Executed on PC   `
+### 📱 Telegram Bot Token
 
-## 📂 Project Structure
+1.  Open Telegram
+    
+2.  Search **BotFather**
+    
+3.  Type /start
+    
+4.  Type /newbot
+    
+5.  Set bot name and username
+    
+6.  Copy the **BOT TOKEN**
+    
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   project/   ├── server.py         # Web server + mobile UI   ├── listener.py       # PC command executor   ├── gemini_client.py  # AI command generator   └── README.md   `
+### 🤖 Gemini API Key
 
-## ⚙️ Requirements
+1.  Go to Google AI Studio
+    
+2.  Generate API key
+    
+3.  Copy it
+    
 
-- Python 3.8+
-- Internet connection
-- Windows OS (for CMD commands)
+📁 3. Project Setup
+-------------------
 
-### 📦 Install Dependencies
+Create a project folder and add these files:
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   pip install flask requests google-generativeai   `
+Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   project/  │  ├── listener.py  ├── ai.py  ├── bridge.py   `
 
-## 🔑 Setup
+📦 4. Install Dependencies
+--------------------------
 
-### 1️⃣ Get Gemini API Key
+Run this command in terminal:
 
-- Go to Google AI Studio
-- Generate API key
-- Replace in code:
+Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   pip install flask requests python-telegram-bot google-generativeai   `
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   genai.configure(api_key="YOUR_API_KEY")   `
+💻 5. Setup PC Listener (Main Engine)
+-------------------------------------
 
-### 2️⃣ Find Your PC IP
+Edit listener.py:
+
+*   Change SECRET (important)
+    
+
+Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   SECRET = "your_strong_secret_here"   `
 
 Run:
+
+Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   python listener.py   `
+
+✅ Your PC is now listening on:
+
+Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   http://localhost:5000/run   `
+
+🌐 6. Find Your PC IP
+---------------------
+
+### Windows:
 
 Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   ipconfig   `
 
 Look for:
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   IPv4 Address: 192.168.X.X   `
+Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   IPv4 Address → example: 192.168.1.5   `
 
-### 3️⃣ Update Config
+🤖 7. Setup AI (Gemini)
+-----------------------
 
-Replace in files:
+Edit ai.py:
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   SERVER_URL = "http://YOUR_IP:5000"   `
+Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   genai.configure(api_key="YOUR_GEMINI_API_KEY")   `
 
-## ▶️ Run the System
+🔗 8. Setup Bridge Server
+-------------------------
 
-### Step 1: Start Server
+Edit bridge.py:
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   python server.py   `
+Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   PC_URL = "http://YOUR_PC_IP:5000/run"  SECRET = "your_strong_secret_here"  BOT_TOKEN = "YOUR_TELEGRAM_BOT_TOKEN"   `
 
-### Step 2: Start Listener (PC)
+▶️ 9. Run the System
+--------------------
+
+### Step 1: Start Listener (PC)
 
 Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   python listener.py   `
 
-### Step 3: Open Mobile UI
+### Step 2: Start Bridge Server
 
-On your phone browser:
+Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   python bridge.py   `
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   http://YOUR_IP:5000   `
+🧪 10. Test the System
+----------------------
 
-### Step 4: Send Commands
+Open your Telegram bot and send:
 
-Type:
+Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   open notepad   `
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   open chrome and go to youtube   `
+✅ Expected flow:
 
-## 🤖 Gemini AI Usage
+1.  You send message
+    
+2.  Gemini converts → notepad
+    
+3.  Command sent to PC
+    
+4.  PC executes
+    
+5.  Output returned to Telegram
+    
 
-Gemini converts natural language into Windows commands.
+🔐 Security Tips (VERY IMPORTANT)
+---------------------------------
 
-### Example:
+⚠️ This system can fully control your PC
 
-InputOutputopen chromestart chromeopen youtubestart chrome [https://youtube.com](https://youtube.com/)create folder testmkdir testlist filesdir
+*   Use a strong SECRET (not mysecret123)
+    
+*   Do NOT expose port 5000 publicly without protection
+    
+*   Use firewall or VPN
+    
+*   Add command filtering (recommended)
+    
+*   Restrict Telegram user IDs
+    
 
-## 🔐 Security
+❗ Common Errors & Fix
+---------------------
 
-⚠️ Important: This project allows remote execution.
+### ❌ Bot not responding
 
-### Implemented:
+*   Check BOT\_TOKEN
+    
+*   Ensure bridge.py is running
+    
 
-- Secret key validation
-- Basic command filtering
+### ❌ No output from PC
 
-### Recommended:
+*   Check listener is running
+    
+*   Verify PC IP is correct
+    
 
-- Use strong secret key
-- Restrict IP access
-- Add HTTPS
-- Avoid exposing to public internet
+### ❌ Unauthorized error
 
-## 🧪 Safety Filter
+*   SECRET mismatch between files
+    
 
-Blocked commands:
+🚀 Example Commands
+-------------------
 
-- format
-- del /f
-- rd /s
-- system destructive actions
+Try sending:
 
-## 📱 Mobile Control Options
+Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   open chrome  shutdown pc  list files in desktop   `
 
-### ✅ Web UI (Recommended)
+🧠 How It Works
+---------------
 
-- Open browser
-- Enter commands directly
+Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   Telegram → Bridge → Gemini → Command → PC → Output → Telegram   `
 
-### ⚡ Gemini Assisted
+💡 Future Improvements
+----------------------
 
-- Use Gemini to generate commands
-- Paste into UI
+*   Add GUI dashboard
+    
+*   Add authentication system
+    
+*   Add command history
+    
+*   Add file transfer support
+    
 
-## 🚀 Features
+🎯 Done!
+--------
 
-- ✅ Natural language control
-- ✅ AI-powered command generation
-- ✅ Remote execution
-- ✅ Context-aware memory
-- ✅ Safety filtering
+You now have your own **AI-powered remote PC controller** 🤖💻
 
-## 🔥 Future Improvements
-
-- 🎤 Voice control (Jarvis mode)
-- 📱 Telegram bot integration
-- 🖥️ Screen automation (mouse/keyboard)
-- 👀 AI screen reading
-- 🌍 Internet-based control
-
-## ⚠️ Disclaimer
-
-Use at your own risk.Improper use may harm your system.
-
-## 💡 Inspiration
-
-Inspired by autonomous systems like:
-
-- AI agents controlling computers
-- Multimodal automation frameworks
-
-## 🧑‍💻 Author
-
-Built with ❤️ using Python + Gemini AI
-
-## ⭐ Contribute
-
-Pull requests welcome!
-
-## 📜 License
-
-MIT License
-# self-operating-computer
+Use responsibly and securely.
