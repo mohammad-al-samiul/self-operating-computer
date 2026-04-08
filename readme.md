@@ -1,192 +1,83 @@
-# 🧠 AI Remote PC Control (Telegram + Gemini)
+# 🤖 Self-Operating Computer
 
-Control your PC remotely using natural language commands via Telegram.
-This system uses **Google Gemini AI** to convert human text into executable commands and runs them on your PC.
+**Control your PC from your phone using Gemini AI as the brain.** This project transforms your PC into a central server, your phone into a command center, and Google Gemini as the intelligent connector that translates natural language into system actions.
 
----
+## 🏗️ Architecture
 
-## 🚀 System Flow
+The system operates in a three-layer architecture:
 
-```
-Telegram → Bridge Server → Gemini AI → Command → PC Listener → Output → Telegram
-```
+1.  **Command Center (Mobile):** Uses Telegram as the interface to send voice or text commands.
+2.  **The Brain (Gemini AI):** Processes the natural language, understands intent, and triggers specific functions.
+3.  **Central Server (PC):** A FastAPI/Flask listener that stays active on your computer to execute authorized commands.
 
----
+## 🌟 Features
 
-## 📦 Features
+- **Natural Language Control:** No need for specific syntax. Say "Open Chrome" or "Screenshot please," and it works.
+- **Secure Execution:** Token-based authentication ensures only you can control your PC.
+- **Remote Access:** Control your PC from anywhere in the world via secure tunneling (Ngrok).
+- **Extensible:** Easily add custom scripts for media control, file management, or system monitoring.
 
-- 📱 Control PC from Telegram
-- 🤖 Natural language → system command
-- ⚡ Real-time execution
-- 🔐 Token-based security
-- 🧩 Modular architecture
-
----
-
-## 🏗️ Project Structure
+## 📂 Project Structure
 
 ```
-project/
-│
-├── listener.py   # Runs on PC (executes commands)
-├── ai.py         # Gemini AI logic
-├── bridge.py     # Telegram + AI + PC connector
-└── run.sh        # (optional) start script
+gemini-commander/
+
+├── pc_server.py       # The Listener (FastAPI server running on PC)
+├── ai_bridge.py       # The Connector (Telegram Bot + Gemini Logic)
+├── .env               # API Keys and Secret Tokens (Private)
+└── README.md          # Project documentation
 ```
 
----
+## ⚙️ Setup & Installation
 
-## ⚙️ Setup Guide
+### 1\. Prerequisites
 
-### 1️⃣ Clone Repository
+- Python 3.9+ installed.
+- A Telegram Bot Token (from [@BotFather](https://www.google.com/search?q=https://t.id/botfather)).
+- A Gemini API Key (from [Google AI Studio](https://aistudio.google.com/)).
 
-```
-git clone https://github.com/yourusername/ai-remote-pc.git
-cd ai-remote-pc
-```
+### 2\. Installation
 
----
-
-### 2️⃣ Install Dependencies
+Clone the repository and install dependencies:
 
 ```
-pip install flask requests python-telegram-bot google-generativeai
+git clone https://github.com/yourusername/gemini-pc-commander.git  cd gemini-pc-commander  pip install -r requirements.txt
 ```
 
----
+### 3\. Configuration
 
-### 3️⃣ Configure Environment
-
-Edit files:
-
-#### 📄 `listener.py`
+Create a .env file in the root directory:
 
 ```
-SECRET = "your_strong_secret_here"
+GEMINI_API_KEY=your_gemini_key_here  TELEGRAM_BOT_TOKEN=your_telegram_bot_token_here  AUTH_TOKEN=choose_a_strong_secret_password  PC_SERVER_URL=your_ngrok_url_here
 ```
 
-#### 📄 `ai.py`
+## ▶️ Running the Project
 
-```
-genai.configure(api_key="YOUR_GEMINI_API_KEY")
-```
+1.  Bashpython pc_server.py
+2.  Bashngrok http 8000*Copy the Forwarding URL and update PC_SERVER_URL in your .env.*
+3.  Bashpython ai_bridge.py
 
-#### 📄 `bridge.py`
+## 🧪 Usage Examples
 
-```
-PC_URL = "http://YOUR_PC_IP:5000/run"
-SECRET = "your_strong_secret_here"
-BOT_TOKEN = "YOUR_TELEGRAM_BOT_TOKEN"
-```
+Open your Telegram bot and try these:
 
----
+- "Open Notepad"
+- "Take a screenshot"
+- "Lock my workstation"
+- "Open Chrome and go to YouTube"
 
-## ▶️ Run the System
+## 🔐 Security Information
 
-### Option A: Manual
+- **Authentication:** All requests from the AI Bridge to the PC Server require an X-Token header.
+- **Privacy:** It is recommended to whitelist your Telegram User ID in ai_bridge.py so others cannot message your bot.
+- **Local Safety:** Use pyautogui and subprocess carefully to avoid accidental system changes.
 
-```
-python listener.py
-```
+## 🛠️ Troubleshooting
 
-Open another terminal:
-
-```
-python bridge.py
-```
-
----
-
-### Option B: Bash Script (Linux/Mac)
-
-```
-chmod +x run.sh
-./run.sh
-```
-
----
-
-### Option C: Windows
-
-Create `run.bat`:
-
-```
-@echo off
-start cmd /k python listener.py
-timeout /t 2
-start cmd /k python bridge.py
-```
-
----
-
-## 📱 Telegram Bot Setup
-
-1. Open Telegram
-2. Search **BotFather**
-3. Run `/start`
-4. Create bot → `/newbot`
-5. Copy your BOT TOKEN
-
----
-
-## 🧪 Usage
-
-Send commands in Telegram:
-
-```
-open notepad
-```
-
-```
-shutdown pc
-```
-
-```
-open chrome
-```
-
----
-
-## 🔐 Security Warning
-
-⚠️ This system gives full control over your PC.
-
-- Use a strong SECRET
-- Do NOT expose port 5000 publicly
-- Use firewall / VPN
-- Add command filtering (recommended)
-- Restrict Telegram user IDs
-
----
-
-## ❗ Troubleshooting
-
-| Problem            | Solution                      |
-| ------------------ | ----------------------------- |
-| Bot not responding | Check BOT_TOKEN & bridge.py   |
-| No output          | Ensure listener.py is running |
-| Unauthorized       | SECRET mismatch               |
-
----
-
-## 💡 Future Improvements
-
-- ✅ Command whitelist
-- 🔐 User authentication
-- 📊 Logging system
-- 🌐 Web dashboard
-- ☁️ Cloud deployment
-
----
+- **404 Model Not Found:** Ensure your google-generativeai library is updated (pip install -U google-generativeai).
+- **Connection Refused:** Ensure Ngrok is pointing to the correct port (default: 8000) and your firewall allows local connections.
 
 ## 📜 License
 
-MIT License
-
----
-
-## ⭐ Support
-
-If you like this project, give it a ⭐ on GitHub!
-
----
+This project is licensed under the MIT License - see the LICENSE file for details.
